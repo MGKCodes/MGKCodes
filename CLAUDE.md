@@ -5,7 +5,7 @@
 MGKCodes is a **product-led software studio** run by a solo founder (Matthew Kay).
 It exists primarily to ship its own apps and products — Liftio (live on the iOS App Store) is the first; more are planned. Client work is welcome but is **partnership-style, not transactional** — the site is a passive surface for collaborators / investors / interesting conversations to find their way in.
 
-This is **not** a small-business web-dev shop. There are no service tiers, no £99 landing pages, no pricing, no contact form sales funnel. Anything in older files suggesting otherwise is wrong and should be removed.
+This is **not** a small-business web-dev shop. There are no service tiers, no £99 landing pages, no pricing, no sales funnel. The contact page has a single minimal message form (Resend), framed as "open to conversations", not lead capture. Anything in older files suggesting otherwise is wrong and should be removed.
 
 ## Brand model
 
@@ -76,7 +76,7 @@ The MGKCodes identity is built from the brand board (`public/images/logo/BrandBo
 | `/` | Studio intro, current focus, project strip, hand-picked tweets | Yes |
 | `/projects` | All apps/products on one page, each in its own visual treatment inside the MGKCodes shell. Architecture must equally accommodate future apps — no app should dominate. | Yes |
 | `/studio` | Studio story, how MGKCodes operates, philosophy. Replaces the old `/about`. | Yes |
-| `/contact` | No form. Just LinkedIn, X, GitHub, email-as-text. "Open to conversations" framing, not sales. | Yes |
+| `/contact` | A minimal message form (Resend) plus email-as-text and the company LinkedIn. "Open to conversations" framing, not a sales funnel. | Yes |
 | `/connect` | Conference QR landing page. Ruthlessly simple — name, one-line focus, link list. Inherits site design. **Hidden from nav.** | No |
 | `/privacy/liftio`, `/terms/liftio`, `/support/liftio` | Liftio legal — required by App Store. Already correct; do not touch. | No |
 | `/privacy`, `/terms` | MGKCodes legal. Out of scope for the reshape unless explicitly asked. | No |
@@ -90,7 +90,7 @@ The MGKCodes identity is built from the brand board (`public/images/logo/BrandBo
 - **Icons:** Lucide React
 - **Font:** IBM Plex Sans via `next/font/google`
 
-Do **not** add: form libraries, email-sending libraries (EmailJS removed), analytics SDKs without asking.
+Email sending uses **Resend**: the `/contact` form posts to `app/api/contact/route.ts` (EmailJS was removed in favour of it). Set `RESEND_API_KEY` (see `.env.example`). **Vercel Analytics** is enabled. Do **not** add: heavy form libraries (the contact form is a plain form posting to a Route Handler), other analytics SDKs without asking.
 
 ## External links / channels — strict separation
 
@@ -132,7 +132,7 @@ app/
   page.tsx            # Home
   projects/page.tsx   # All projects, one page
   studio/page.tsx     # Studio story
-  contact/page.tsx    # No form, links only
+  contact/page.tsx    # Message form (Resend) + direct links
   connect/page.tsx    # Conference QR landing
   privacy/liftio/     # Liftio legal — leave alone
   terms/liftio/

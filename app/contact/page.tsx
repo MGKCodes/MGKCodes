@@ -1,9 +1,16 @@
 "use client";
 
+import { useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
+import { Button } from "@/components/ui/Button";
 
 const ease = [0.22, 1, 0.36, 1] as const;
+
+const inputClass =
+  "w-full rounded-none bg-[var(--color-surface)] border border-[var(--color-border)] focus:border-[var(--color-accent)] focus:outline-none px-4 py-3 text-[15px] text-white placeholder:text-[var(--color-text-quiet)] transition-colors";
+const labelClass =
+  "block text-[11px] font-semibold tracking-[1.5px] uppercase text-[var(--color-text-quiet)] mb-2";
 
 const channels = [
   {
@@ -22,6 +29,35 @@ const channels = [
 
 export default function ContactPage() {
   const reduce = useReducedMotion();
+  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">(
+    "idle"
+  );
+  const [error, setError] = useState("");
+
+  async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const form = e.currentTarget;
+    const data = Object.fromEntries(new FormData(form));
+    setStatus("sending");
+    setError("");
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+      if (!res.ok) {
+        const j = await res.json().catch(() => ({}));
+        throw new Error(j.error || "Could not send.");
+      }
+      setStatus("sent");
+      form.reset();
+    } catch (err) {
+      setStatus("error");
+      setError(err instanceof Error ? err.message : "Could not send.");
+    }
+  }
+
   return (
     <div className="pt-32 pb-32">
       <section className="max-w-[1180px] mx-auto px-6 relative">
@@ -57,16 +93,85 @@ export default function ContactPage() {
             className="mt-6 text-[16px] text-[var(--color-text-muted)] leading-relaxed max-w-[560px]"
           >
             Open to conversations about partnerships, collaborations, and the
-            right ideas to build. Email is the way in.
+            right ideas to build. Send a message, or reach out directly.
           </motion.p>
         </div>
       </section>
 
-      <section className="max-w-[1180px] mx-auto px-6 mt-20">
+      <section className="max-w-[1180px] mx-auto px-6 mt-16">
+        <div className="grid md:grid-cols-[180px_1fr] gap-6 md:gap-12 border-t border-[var(--color-border)] pt-10">
+          <div>
+            <span className="text-[11px] font-semibold tracking-[1.5px] uppercase text-[var(--color-text-quiet)]">
+              Message
+            </span>
+          </div>
+          <div className="max-w-[560px]">
+            {status === "sent" ? (
+              <p className="text-[16px] text-white leading-relaxed">
+                Thanks. You&apos;ll hear back within a few days.
+              </p>
+            ) : (
+              <form onSubmit={onSubmit} className="space-y-5" noValidate>
+                <div>
+                  <label htmlFor="email" className={labelClass}>
+                    Email
+                  </label>
+                  <input
+                    id="email"
+                    name="email"
+                    type="email"
+                    required
+                    autoComplete="email"
+                    placeholder="you@example.com"
+                    className={inputClass}
+                  />
+                </div>
+                <div>
+                  <label htmlFor="message" className={labelClass}>
+                    Message
+                  </label>
+                  <textarea
+                    id="message"
+                    name="message"
+                    required
+                    rows={5}
+                    placeholder="What you're working on, or what you have in mind."
+                    className={`${inputClass} resize-y`}
+                  />
+                </div>
+                <input
+                  type="text"
+                  name="website"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  aria-hidden="true"
+                  className="hidden"
+                />
+                <div className="flex flex-wrap items-center gap-4 pt-1">
+                  <Button
+                    variant="secondary"
+                    type="submit"
+                    disabled={status === "sending"}
+                  >
+                    {status === "sending" ? "Sending" : "Send message"}
+                  </Button>
+                  {status === "error" && (
+                    <span className="text-[13px] text-[var(--color-text-muted)]">
+                      {error} Or email hello@mgkcodes.com.
+                    </span>
+                  )}
+                </div>
+              </form>
+            )}
+          </div>
+        </div>
+      </section>
+
+      <section className="max-w-[1180px] mx-auto px-6 mt-16">
         <div className="grid md:grid-cols-[180px_1fr] gap-6 md:gap-12 border-t border-[var(--color-border)] pt-4">
           <div className="pt-6">
             <span className="text-[11px] font-semibold tracking-[1.5px] uppercase text-[var(--color-text-quiet)]">
-              Channels
+              Direct
             </span>
           </div>
           <div>
@@ -96,15 +201,6 @@ export default function ContactPage() {
                 <ArrowUpRight className="w-5 h-5 text-[var(--color-text-quiet)] group-hover:text-white transition-all duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 ml-6 shrink-0" />
               </motion.a>
             ))}
-            <motion.p
-              initial={reduce ? false : { opacity: 0, y: 8 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.4, delay: 0.3, ease }}
-              className="mt-8 text-[13px] text-[var(--color-text-quiet)] leading-relaxed max-w-[520px]"
-            >
-              Reply within a few days. Sometimes sooner.
-            </motion.p>
           </div>
         </div>
       </section>
