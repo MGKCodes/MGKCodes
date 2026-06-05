@@ -25,10 +25,6 @@ export function Header() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  useEffect(() => {
-    setOpen(false);
-  }, [pathname]);
-
   return (
     <header
       className={cn(
@@ -42,6 +38,7 @@ export function Header() {
         <div className="flex items-center justify-between h-20">
           <Link
             href="/"
+            onClick={() => setOpen(false)}
             className="group/logo flex items-center transition-opacity hover:opacity-80"
             aria-label="MGKCodes home"
           >
@@ -108,6 +105,7 @@ export function Header() {
                   <Link
                     key={link.href}
                     href={link.href}
+                    onClick={() => setOpen(false)}
                     className={cn(
                       "text-base tracking-tight",
                       active ? "text-white" : "text-[var(--color-text-muted)]"
