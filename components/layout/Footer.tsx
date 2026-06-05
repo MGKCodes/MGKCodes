@@ -40,7 +40,7 @@ export function Footer() {
 
         <div className="border-t border-[var(--color-border)] mt-10 pt-6 flex items-center justify-between">
           <p className="text-[12px] text-[var(--color-text-quiet)] tracking-tight">
-            &copy; 2026 MGKCodes Ltd
+            &copy; {new Date().getFullYear()} MGKCodes Ltd
           </p>
           <p className="text-[11px] text-[var(--color-text-quiet)] tracking-[1.5px] uppercase">
             Outside the box
