@@ -48,7 +48,7 @@ export default function StudioPage() {
 
         <div className="pt-12 md:pt-16">
           <motion.span
-            initial={{ opacity: 0, y: 8 }}
+            initial={reduce ? false : { opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, ease }}
             className="inline-block text-[11px] font-semibold tracking-[1.5px] uppercase text-[var(--color-accent)] mb-6"
@@ -56,8 +56,8 @@ export default function StudioPage() {
             Studio
           </motion.span>
           <motion.h1
-            initial={reduce ? false : { opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={{ y: 16 }}
+            animate={{ y: 0 }}
             transition={{ duration: 0.6, delay: 0.1, ease }}
             className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-[1.05] max-w-[800px]"
           >

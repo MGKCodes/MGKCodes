@@ -71,7 +71,7 @@ export default function ContactPage() {
 
         <div className="pt-12 md:pt-16">
           <motion.span
-            initial={{ opacity: 0, y: 8 }}
+            initial={reduce ? false : { opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, ease }}
             className="inline-block text-[11px] font-semibold tracking-[1.5px] uppercase text-[var(--color-accent)] mb-6"
@@ -79,15 +79,15 @@ export default function ContactPage() {
             Contact
           </motion.span>
           <motion.h1
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={{ y: 16 }}
+            animate={{ y: 0 }}
             transition={{ duration: 0.6, delay: 0.1, ease }}
             className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-[1.05] max-w-[800px]"
           >
             Get in touch.
           </motion.h1>
           <motion.p
-            initial={{ opacity: 0, y: 12 }}
+            initial={reduce ? false : { opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.25, ease }}
             className="mt-6 text-[16px] text-[var(--color-text-muted)] leading-relaxed max-w-[560px]"
@@ -107,7 +107,11 @@ export default function ContactPage() {
           </div>
           <div className="max-w-[560px]">
             {status === "sent" ? (
-              <p className="text-[16px] text-white leading-relaxed">
+              <p
+                role="status"
+                aria-live="polite"
+                className="text-[16px] text-white leading-relaxed"
+              >
                 Thanks. You&apos;ll hear back within a few days.
               </p>
             ) : (
@@ -156,7 +160,11 @@ export default function ContactPage() {
                     {status === "sending" ? "Sending" : "Send message"}
                   </Button>
                   {status === "error" && (
-                    <span className="text-[13px] text-[var(--color-text-muted)]">
+                    <span
+                      role="status"
+                      aria-live="polite"
+                      className="text-[13px] text-[var(--color-text-muted)]"
+                    >
                       {error} Or email hello@mgkcodes.com.
                     </span>
                   )}
