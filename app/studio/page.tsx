@@ -30,7 +30,7 @@ const howWeWork = [
   "Each product is taken from sketch to launched product by the same hands. No translation layer between idea and execution.",
   "Design and code happen in parallel. Decisions get tested in the actual product, not in mockups.",
   "Things ship when they hold up to real use. No fixed sprint deadline forcing half-baked work out the door.",
-  "A deliberately small product. Fewer features, each one finished properly.",
+  "Built to a professional standard. Fewer features, each one finished properly.",
 ];
 
 export default function StudioPage() {

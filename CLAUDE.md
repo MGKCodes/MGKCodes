@@ -97,9 +97,10 @@ Email sending uses **Resend**: the `/contact` form posts to `app/api/contact/rou
 The MGKCodes brand and the founder's personal accounts are **separate identities**. The site enforces this separation:
 
 ### MGKCodes (the company / studio)
-Only **active** MGKCodes-branded channels appear on the main site (Footer, Contact, Studio "Reach out"). Inactive MGKCodes channels (X, TikTok, Instagram, LinkedIn) are **not** linked anywhere — empty profiles read as abandoned and damage the brand. They get added in batch when content is being posted.
+Only **active** MGKCodes-branded channels appear on the main site (Footer, Contact, Studio "Reach out"). Inactive MGKCodes channels (X, TikTok, Instagram) are **not** linked anywhere. Empty profiles read as abandoned and damage the brand. They get added in batch when content is being posted.
 
-- **Email:** hello@mgkcodes.com (currently the only active MGKCodes channel)
+- **Email:** hello@mgkcodes.com
+- **LinkedIn:** https://www.linkedin.com/company/mgkcodes/ (company page)
 
 ### Personal — Matthew Kay
 These appear **only on `/connect`** (the personal QR-code landing page). They must **not** appear in Footer, Contact, Studio, or any MGKCodes-branded surface.
