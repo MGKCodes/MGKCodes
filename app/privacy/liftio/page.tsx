@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy | Liftio",
+  title: { absolute: "Privacy Policy | Liftio" },
   description:
     "Privacy policy for the Liftio iOS app by MGKCodes Ltd. Learn how Liftio handles your data, including account information, workout data, and subscriptions.",
 };

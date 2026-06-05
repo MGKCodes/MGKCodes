@@ -3,7 +3,7 @@ import { Section } from "@/components/ui/Section";
 import { Button } from "@/components/ui/Button";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy | MGKCodes",
+  title: "Privacy Policy",
   description: "Privacy policy for MGKCodes website and services.",
 };
 

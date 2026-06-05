@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Terms of Service | Liftio",
+  title: { absolute: "Terms of Service | Liftio" },
   description:
     "Terms of Service for the Liftio iOS app by MGKCodes Ltd. Covers subscriptions, data ownership, acceptable use, and more.",
 };

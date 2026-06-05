@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Support | Liftio",
+  title: { absolute: "Support | Liftio" },
   description:
     "Get support for the Liftio iOS app. Contact MGKCodes Ltd with any questions or issues.",
 };

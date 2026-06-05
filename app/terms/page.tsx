@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { Section } from "@/components/ui/Section";
 
 export const metadata: Metadata = {
-  title: "Terms of Service | MGKCodes",
+  title: "Terms of Service",
   description: "Terms of service for MGKCodes website and services.",
 };
 

@@ -163,7 +163,10 @@ function ProjectBlock({ project, index }: { project: Project; index: number }) {
                 />
               </div>
             )}
-            <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-white leading-tight">
+            <h2
+              id={project.name.toLowerCase()}
+              className="scroll-mt-28 text-3xl md:text-4xl font-bold tracking-tight text-white leading-tight"
+            >
               {project.name}
             </h2>
           </div>

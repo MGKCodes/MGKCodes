@@ -1,9 +1,11 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { IBM_Plex_Sans } from "next/font/google";
 import { MotionConfig } from "framer-motion";
 import "./globals.css";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
+import { JsonLd } from "@/components/JsonLd";
+import { siteGraph } from "@/lib/schema";
 
 const ibmPlexSans = IBM_Plex_Sans({
   variable: "--font-ibm-plex-sans",
@@ -16,8 +18,12 @@ const description =
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://mgkcodes.com"),
-  title: "MGKCodes",
+  title: {
+    default: "MGKCodes. Independent software studio.",
+    template: "%s | MGKCodes",
+  },
   description,
+  alternates: { canonical: "/" },
   openGraph: {
     title: "MGKCodes",
     description,
@@ -32,6 +38,10 @@ export const metadata: Metadata = {
   },
 };
 
+export const viewport: Viewport = {
+  themeColor: "#08090d",
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -40,6 +50,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={ibmPlexSans.variable}>
       <body className="font-sans">
+        <JsonLd data={siteGraph} />
         <MotionConfig reducedMotion="user">
           <Header />
           <main>{children}</main>

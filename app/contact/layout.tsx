@@ -1,8 +1,12 @@
 import { Metadata } from "next";
+import { JsonLd } from "@/components/JsonLd";
+import { breadcrumb } from "@/lib/schema";
 
 export const metadata: Metadata = {
-  title: "Contact | MGKCodes",
-  description: "Where to reach MGKCodes.",
+  title: "Contact",
+  description:
+    "Reach MGKCodes. Email hello@mgkcodes.com, or find the studio on LinkedIn.",
+  alternates: { canonical: "/contact" },
 };
 
 export default function ContactLayout({
@@ -10,5 +14,15 @@ export default function ContactLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return children;
+  return (
+    <>
+      <JsonLd
+        data={breadcrumb([
+          { name: "MGKCodes", path: "/" },
+          { name: "Contact", path: "/contact" },
+        ])}
+      />
+      {children}
+    </>
+  );
 }

@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
+import { studioFaq } from "@/lib/schema";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
@@ -158,6 +159,35 @@ export default function StudioPage() {
               </motion.li>
             ))}
           </ol>
+        </div>
+      </section>
+
+      <section className="max-w-[1180px] mx-auto px-6 mt-24">
+        <div className="grid md:grid-cols-[180px_1fr] gap-6 md:gap-12 border-t border-[var(--color-border)] pt-10">
+          <div>
+            <span className="text-[11px] font-semibold tracking-[1.5px] uppercase text-[var(--color-text-quiet)]">
+              Questions
+            </span>
+          </div>
+          <dl className="max-w-[680px] divide-y divide-[var(--color-border)]">
+            {studioFaq.map((item, i) => (
+              <motion.div
+                key={item.q}
+                initial={reduce ? false : { opacity: 0, y: 12 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-80px" }}
+                transition={{ duration: 0.5, delay: i * 0.06, ease }}
+                className="py-5 first:pt-0 last:pb-0"
+              >
+                <dt className="text-[16px] font-semibold text-white">
+                  {item.q}
+                </dt>
+                <dd className="mt-2 text-[15px] text-[var(--color-text-muted)] leading-[1.7]">
+                  {item.a}
+                </dd>
+              </motion.div>
+            ))}
+          </dl>
         </div>
       </section>
 
