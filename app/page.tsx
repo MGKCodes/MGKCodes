@@ -1,12 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
 export default function HomePage() {
+  const reduce = useReducedMotion();
   return (
     <div className="pt-32 pb-32">
       <section className="max-w-[1180px] mx-auto px-6 relative">
@@ -42,30 +43,28 @@ export default function HomePage() {
           </motion.span>
 
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight text-white leading-[1.02] max-w-[900px]">
-            {[
-              "An independent",
-              "software studio.",
-              <span key="3">
-                Idea to launch.
+            {["An independent", "software studio.", "Idea to launch."].map(
+              (line, i) => (
                 <motion.span
-                  initial={{ scaleX: 0 }}
-                  animate={{ scaleX: 1 }}
-                  transition={{ duration: 0.6, delay: 1.2, ease }}
-                  className="inline-block ml-3 mb-2 align-middle h-2 w-12 bg-[var(--color-accent)] origin-left"
-                />
-              </span>,
-            ].map((line, i) => (
-              <motion.span
-                key={i}
-                initial={{ opacity: 0, y: 24 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.2 + i * 0.12, ease }}
-                className="block"
-              >
-                {line}
-              </motion.span>
-            ))}
+                  key={i}
+                  initial={{ opacity: 0, y: 24 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.2 + i * 0.12, ease }}
+                  className="block"
+                >
+                  {line}
+                </motion.span>
+              )
+            )}
           </h1>
+
+          <motion.div
+            initial={{ scaleX: 0 }}
+            animate={{ scaleX: 1 }}
+            transition={{ duration: 0.6, delay: 1.2, ease }}
+            className="mt-6 h-2 w-16 bg-[var(--color-accent)] origin-left"
+            aria-hidden
+          />
 
           <motion.p
             initial={{ opacity: 0, y: 12 }}
@@ -73,7 +72,7 @@ export default function HomePage() {
             transition={{ duration: 0.5, delay: 0.85, ease }}
             className="mt-8 text-[17px] text-[var(--color-text-muted)] leading-relaxed max-w-[560px]"
           >
-            We take software products from first sketch to App Store. Design,
+            We take software products from first sketch to launch. Design,
             engineering, launch, marketing. Done in-house, by the same hands.
           </motion.p>
 
@@ -104,7 +103,7 @@ export default function HomePage() {
       </section>
 
       <motion.section
-        initial={{ opacity: 0 }}
+        initial={reduce ? false : { opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true, margin: "-80px" }}
         transition={{ duration: 0.6, ease }}
@@ -123,14 +122,15 @@ export default function HomePage() {
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-[var(--color-accent)]" />
               </span>
               <p className="text-[17px] text-white">
-                Building <span className="text-[var(--color-accent-strong)]">Liftio</span>.
-                <span className="text-[var(--color-text-muted)]"> An iOS training tracker. Live on the App Store.</span>
+                Shipping <span className="text-[var(--color-accent-strong)]">frunt</span>.
+                <span className="text-[var(--color-text-muted)]"> Staff training and compliance for restaurants. Live with its first client.</span>
               </p>
             </div>
             <div className="flex items-baseline gap-3">
               <span className="h-2 w-2 rounded-full bg-[var(--color-text-quiet)] mt-1" />
-              <p className="text-[17px] text-[var(--color-text-muted)]">
-                Next product. <span className="text-[var(--color-text-quiet)]">In design.</span>
+              <p className="text-[17px] text-white">
+                Building <span className="text-[var(--color-accent-strong)]">Liftio</span>.
+                <span className="text-[var(--color-text-muted)]"> An iOS training tracker. Live on the App Store.</span>
               </p>
             </div>
           </div>
@@ -138,7 +138,7 @@ export default function HomePage() {
       </motion.section>
 
       <motion.section
-        initial={{ opacity: 0, y: 16 }}
+        initial={reduce ? false : { opacity: 0, y: 16 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-80px" }}
         transition={{ duration: 0.5, ease }}
@@ -165,6 +165,32 @@ export default function HomePage() {
                 className="group grid grid-cols-[1fr_auto] md:grid-cols-[180px_1fr_120px_auto] items-baseline gap-x-6 gap-y-1 py-5"
               >
                 <span className="text-[17px] text-white tracking-tight">
+                  frunt
+                </span>
+                <span className="hidden md:inline text-[12px] tracking-[1.5px] uppercase text-[var(--color-text-quiet)]">
+                  Web &middot; Hospitality
+                </span>
+                <span className="hidden md:flex items-center gap-2 text-[12px] text-[var(--color-text-muted)]">
+                  <span className="relative flex h-1.5 w-1.5">
+                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[var(--color-accent)] opacity-60" />
+                    <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-[var(--color-accent)]" />
+                  </span>
+                  Live
+                </span>
+                <ArrowUpRight className="w-4 h-4 text-[var(--color-text-quiet)] transition-all duration-300 group-hover:text-white group-hover:translate-x-0.5 group-hover:-translate-y-0.5 row-span-2 md:row-span-1 self-center" />
+                <p className="col-span-1 md:col-span-3 text-[14px] text-[var(--color-text-muted)] leading-relaxed max-w-[620px]">
+                  Preparation platform for restaurant teams. Turns the documents
+                  they already keep into staff training and compliance, with a
+                  manager dashboard and a native staff app.
+                </p>
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/projects"
+                className="group grid grid-cols-[1fr_auto] md:grid-cols-[180px_1fr_120px_auto] items-baseline gap-x-6 gap-y-1 py-5"
+              >
+                <span className="text-[17px] text-white tracking-tight">
                   Liftio
                 </span>
                 <span className="hidden md:inline text-[12px] tracking-[1.5px] uppercase text-[var(--color-text-quiet)]">
@@ -175,7 +201,7 @@ export default function HomePage() {
                     <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[var(--color-accent)] opacity-60" />
                     <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-[var(--color-accent)]" />
                   </span>
-                  Shipping
+                  Live
                 </span>
                 <ArrowUpRight className="w-4 h-4 text-[var(--color-text-quiet)] transition-all duration-300 group-hover:text-white group-hover:translate-x-0.5 group-hover:-translate-y-0.5 row-span-2 md:row-span-1 self-center" />
                 <p className="col-span-1 md:col-span-3 text-[14px] text-[var(--color-text-muted)] leading-relaxed max-w-[620px]">
@@ -194,7 +220,7 @@ export default function HomePage() {
                 </span>
                 <span className="hidden md:flex items-center gap-2 text-[12px] text-[var(--color-text-quiet)]">
                   <span className="h-1.5 w-1.5 rounded-full bg-[var(--color-text-quiet)]" />
-                  In design
+                  In development
                 </span>
                 <span className="w-4 h-4" aria-hidden />
                 <p className="col-span-1 md:col-span-3 text-[14px] text-[var(--color-text-quiet)] leading-relaxed max-w-[620px]">
@@ -207,7 +233,7 @@ export default function HomePage() {
       </motion.section>
 
       <motion.section
-        initial={{ opacity: 0, y: 16 }}
+        initial={reduce ? false : { opacity: 0, y: 16 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-80px" }}
         transition={{ duration: 0.5, ease }}
@@ -222,7 +248,7 @@ export default function HomePage() {
           <div className="max-w-[640px] space-y-4 text-[16px] text-[var(--color-text)] leading-[1.7]">
             <p>
               Independent. Solo-run. Every product is taken from first sketch
-              to App Store by the same person. No handoffs, no agencies, no
+              to launch by the same person. No handoffs, no agencies, no
               dependencies on other shops.
             </p>
             <p className="text-[var(--color-text-muted)]">

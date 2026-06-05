@@ -1,8 +1,9 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
+import { SitePreview } from "@/components/ui/SitePreview";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
@@ -14,9 +15,28 @@ interface Project {
   links: { label: string; href: string }[];
   logo?: { src: string; alt: string };
   accentColor?: string;
+  previewUrl?: string;
 }
 
 const projects: Project[] = [
+  {
+    name: "frunt",
+    tag: "Web + Mobile",
+    status: "Live",
+    blurb:
+      "A preparation platform for restaurant teams. It turns the documents a restaurant " +
+      "already keeps (allergen guides, SOPs, compliance paperwork) into staff training, " +
+      "onboarding, and compliance, with a native app for the team and a dashboard for managers.",
+    links: [
+      { label: "frunthospitality.com", href: "https://frunthospitality.com" },
+    ],
+    previewUrl: "https://frunthospitality.com",
+    accentColor: "#8A5A2C",
+    logo: {
+      src: "/images/apps/frunt/app_icon.png",
+      alt: "frunt logo",
+    },
+  },
   {
     name: "Liftio",
     tag: "iOS App",
@@ -27,6 +47,7 @@ const projects: Project[] = [
       { label: "App Store", href: "https://apps.apple.com/gb/app/liftio/id6759969740" },
       { label: "getliftio.com", href: "https://www.getliftio.com/" },
     ],
+    previewUrl: "https://www.getliftio.com/",
     logo: {
       src: "/images/apps/liftio/liftio-high-resolution-logo.png",
       alt: "Liftio logo",
@@ -35,11 +56,12 @@ const projects: Project[] = [
 ];
 
 export default function ProjectsPage() {
+  const reduce = useReducedMotion();
   return (
     <div className="pt-32 pb-32">
       <section className="max-w-[1180px] mx-auto px-6 relative">
         <motion.div
-          initial={{ scaleX: 0 }}
+          initial={reduce ? false : { scaleX: 0 }}
           animate={{ scaleX: 1 }}
           transition={{ duration: 0.8, ease }}
           className="absolute top-0 left-0 right-12 md:right-32 h-px bg-[var(--color-border-strong)] origin-left"
@@ -88,19 +110,20 @@ export default function ProjectsPage() {
 }
 
 function ProjectBlock({ project, index }: { project: Project; index: number }) {
+  const reduce = useReducedMotion();
   const accent = project.accentColor ?? "var(--color-accent)";
   const accentStrong = project.accentColor ?? "var(--color-accent-strong)";
 
   return (
     <motion.article
-      initial={{ opacity: 0, y: 24 }}
+      initial={reduce ? false : { opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-100px" }}
       transition={{ duration: 0.6, delay: index * 0.1, ease }}
       className="group relative"
     >
       <motion.div
-        initial={{ scaleX: 0 }}
+        initial={reduce ? false : { scaleX: 0 }}
         whileInView={{ scaleX: 1 }}
         viewport={{ once: true, margin: "-100px" }}
         transition={{ duration: 0.7, delay: index * 0.1 + 0.1, ease }}
@@ -167,6 +190,13 @@ function ProjectBlock({ project, index }: { project: Project; index: number }) {
               </a>
             ))}
           </div>
+
+          {project.previewUrl && (
+            <SitePreview
+              url={project.previewUrl}
+              label={new URL(project.previewUrl).host.replace(/^www\./, "")}
+            />
+          )}
         </div>
       </div>
     </motion.article>
@@ -174,9 +204,10 @@ function ProjectBlock({ project, index }: { project: Project; index: number }) {
 }
 
 function NextPlaceholder({ index }: { index: number }) {
+  const reduce = useReducedMotion();
   return (
     <motion.aside
-      initial={{ opacity: 0, y: 24 }}
+      initial={reduce ? false : { opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-100px" }}
       transition={{ duration: 0.6, delay: index * 0.1, ease }}
@@ -184,7 +215,7 @@ function NextPlaceholder({ index }: { index: number }) {
       aria-label="More projects in the pipeline"
     >
       <motion.div
-        initial={{ scaleX: 0 }}
+        initial={reduce ? false : { scaleX: 0 }}
         whileInView={{ scaleX: 1 }}
         viewport={{ once: true, margin: "-100px" }}
         transition={{ duration: 0.7, delay: index * 0.1 + 0.1, ease }}
@@ -200,7 +231,7 @@ function NextPlaceholder({ index }: { index: number }) {
           <div className="mt-3 inline-flex items-center gap-2">
             <span className="h-1.5 w-1.5 rounded-full bg-[var(--color-text-quiet)]" />
             <span className="text-[11px] uppercase tracking-[1.5px] text-[var(--color-text-quiet)]">
-              In the works
+              In development
             </span>
           </div>
         </div>
@@ -210,7 +241,7 @@ function NextPlaceholder({ index }: { index: number }) {
             More in the pipeline.
           </h2>
           <p className="text-[15px] text-[var(--color-text-quiet)] leading-[1.7]">
-            New products are in build. They&apos;ll show up here when they&apos;re ready.
+            New products are in development. They&apos;ll show up here when they&apos;re ready.
           </p>
         </div>
       </div>

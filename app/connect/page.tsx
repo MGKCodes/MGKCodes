@@ -40,6 +40,11 @@ const links: LinkItem[] = [
     external: true,
   },
   {
+    label: "frunt",
+    href: "https://frunthospitality.com",
+    external: true,
+  },
+  {
     label: "Liftio",
     href: "https://www.getliftio.com/",
     external: true,
@@ -89,10 +94,11 @@ export default function ConnectPage() {
         >
           <p className="text-[14px] text-[var(--color-text)] leading-relaxed">
             Independent software studio. Products built end to end, idea to
-            launched app.
+            launch.
           </p>
           <p className="text-[13px] text-[var(--color-text-muted)] leading-relaxed">
-            Currently shipping Liftio (iOS). Open to selective product work.
+            Two products live: frunt for restaurants, Liftio on iOS. Open to
+            selective product work.
           </p>
         </motion.div>
 

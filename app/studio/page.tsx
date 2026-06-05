@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 
 const ease = [0.22, 1, 0.36, 1] as const;
@@ -26,13 +26,14 @@ const principles = [
 ];
 
 const howWeWork = [
-  "Each product is taken from sketch to launched app by the same hands. No translation layer between idea and execution.",
+  "Each product is taken from sketch to launched product by the same hands. No translation layer between idea and execution.",
   "Design and code happen in parallel. Decisions get tested in the actual product, not in mockups.",
   "Things ship when they hold up to real use. No fixed sprint deadline forcing half-baked work out the door.",
-  "Small product surface by choice. Fewer features, each one finished properly.",
+  "A deliberately small product. Fewer features, each one finished properly.",
 ];
 
 export default function StudioPage() {
+  const reduce = useReducedMotion();
   return (
     <div className="pt-32 pb-32">
       <section className="max-w-[1180px] mx-auto px-6 relative">
@@ -54,7 +55,7 @@ export default function StudioPage() {
             Studio
           </motion.span>
           <motion.h1
-            initial={{ opacity: 0, y: 16 }}
+            initial={reduce ? false : { opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1, ease }}
             className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-[1.05] max-w-[800px]"
@@ -82,14 +83,14 @@ export default function StudioPage() {
             className="max-w-[680px] space-y-5 text-[17px] text-[var(--color-text)] leading-[1.7]"
           >
             {[
-              "MGKCodes builds software products end to end. Each one is taken from idea to launched app inside the studio. Sketch, design, engineering, release, marketing.",
+              "MGKCodes builds software products end to end. Each one is taken from idea to launched product inside the studio. Sketch, design, engineering, release, marketing.",
               "The work spans iOS, web apps, and whatever else the product calls for. Native when it matters. Web when web is the right tool. The product decides.",
-              "Open to conversations about partnerships, technical collaborations, and ideas worth building together. Not optimising for client volume.",
+              "Open to conversations about partnerships, technical collaborations, and the right ideas to build together. Not optimising for client volume.",
             ].map((p, i) => (
               <motion.p
                 key={i}
                 variants={{
-                  hidden: { opacity: 0, y: 12 },
+                  hidden: reduce ? {} : { opacity: 0, y: 12 },
                   visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease } },
                 }}
               >
@@ -111,7 +112,7 @@ export default function StudioPage() {
             {principles.map((p, i) => (
               <motion.div
                 key={p.label}
-                initial={{ opacity: 0, y: 16 }}
+                initial={reduce ? false : { opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-80px" }}
                 transition={{ duration: 0.5, delay: i * 0.08, ease }}
@@ -142,7 +143,7 @@ export default function StudioPage() {
             {howWeWork.map((item, i) => (
               <motion.li
                 key={i}
-                initial={{ opacity: 0, y: 12 }}
+                initial={reduce ? false : { opacity: 0, y: 12 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-80px" }}
                 transition={{ duration: 0.5, delay: i * 0.07, ease }}
@@ -162,7 +163,7 @@ export default function StudioPage() {
 
       <section className="max-w-[1180px] mx-auto px-6 mt-24">
         <motion.div
-          initial={{ opacity: 0, y: 16 }}
+          initial={reduce ? false : { opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.5, ease }}

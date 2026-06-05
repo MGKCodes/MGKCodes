@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 
 const ease = [0.22, 1, 0.36, 1] as const;
@@ -12,9 +12,16 @@ const channels = [
     href: "mailto:hello@mgkcodes.com",
     note: "Direct line to the studio",
   },
+  {
+    label: "LinkedIn",
+    handle: "MGKCodes",
+    href: "https://www.linkedin.com/company/mgkcodes/",
+    note: "Company page and updates",
+  },
 ];
 
 export default function ContactPage() {
+  const reduce = useReducedMotion();
   return (
     <div className="pt-32 pb-32">
       <section className="max-w-[1180px] mx-auto px-6 relative">
@@ -49,8 +56,8 @@ export default function ContactPage() {
             transition={{ duration: 0.5, delay: 0.25, ease }}
             className="mt-6 text-[16px] text-[var(--color-text-muted)] leading-relaxed max-w-[560px]"
           >
-            Open to conversations about partnerships, collaborations, and
-            ideas worth building. Email is the way in.
+            Open to conversations about partnerships, collaborations, and the
+            right ideas to build. Email is the way in.
           </motion.p>
         </div>
       </section>
@@ -69,7 +76,7 @@ export default function ContactPage() {
                 href={c.href}
                 target={c.href.startsWith("http") ? "_blank" : undefined}
                 rel={c.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                initial={{ opacity: 0, y: 12 }}
+                initial={reduce ? false : { opacity: 0, y: 12 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-60px" }}
                 transition={{ duration: 0.4, delay: i * 0.06, ease }}
@@ -90,7 +97,7 @@ export default function ContactPage() {
               </motion.a>
             ))}
             <motion.p
-              initial={{ opacity: 0, y: 8 }}
+              initial={reduce ? false : { opacity: 0, y: 8 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
               transition={{ duration: 0.4, delay: 0.3, ease }}

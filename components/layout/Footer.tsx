@@ -20,12 +20,22 @@ export function Footer() {
             />
           </Link>
 
-          <a
-            href="mailto:hello@mgkcodes.com"
-            className="text-[13px] text-[var(--color-text-muted)] hover:text-[var(--color-accent-strong)] transition-colors"
-          >
-            hello@mgkcodes.com
-          </a>
+          <div className="flex items-center gap-6">
+            <a
+              href="https://www.linkedin.com/company/mgkcodes/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[13px] text-[var(--color-text-muted)] hover:text-[var(--color-accent-strong)] transition-colors"
+            >
+              LinkedIn
+            </a>
+            <a
+              href="mailto:hello@mgkcodes.com"
+              className="text-[13px] text-[var(--color-text-muted)] hover:text-[var(--color-accent-strong)] transition-colors"
+            >
+              hello@mgkcodes.com
+            </a>
+          </div>
         </div>
 
         <div className="border-t border-[var(--color-border)] mt-10 pt-6 flex items-center justify-between">
