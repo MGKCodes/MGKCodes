@@ -1,19 +1,33 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 
 // Live, non-interactive preview of a product site, rendered inside a browser
 // frame. Desktop only: the component does not mount below md, so the external
 // site never loads on mobile. The iframe is sandboxed without top-navigation,
 // so a framed site cannot redirect or hijack the page.
+//
+// A captured screenshot (poster) sits behind the iframe. It shows while the
+// iframe loads and stays visible as a fallback if the external site is slow or
+// ever refuses to be framed (the iframe only fades in once it actually loads).
 
 const BASE_W = 1440;
 const BASE_H = 900;
 
-export function SitePreview({ url, label }: { url: string; label: string }) {
+export function SitePreview({
+  url,
+  label,
+  poster,
+}: {
+  url: string;
+  label: string;
+  poster?: string;
+}) {
   const ref = useRef<HTMLDivElement | null>(null);
   const [show, setShow] = useState(false);
   const [scale, setScale] = useState(0);
+  const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
     const mq = window.matchMedia("(min-width: 768px)");
@@ -60,6 +74,15 @@ export function SitePreview({ url, label }: { url: string; label: string }) {
         className="relative w-full overflow-hidden bg-[var(--color-bg)]"
         style={{ aspectRatio: `${BASE_W} / ${BASE_H}` }}
       >
+        {poster && (
+          <Image
+            src={poster}
+            alt={`${label} preview`}
+            fill
+            sizes="(max-width: 768px) 0px, 640px"
+            className="object-cover object-top"
+          />
+        )}
         <iframe
           src={url}
           title={`${label} preview`}
@@ -68,7 +91,10 @@ export function SitePreview({ url, label }: { url: string; label: string }) {
           aria-hidden
           scrolling="no"
           sandbox="allow-scripts allow-same-origin"
-          className="absolute top-0 left-0 origin-top-left border-0 pointer-events-none"
+          onLoad={() => setLoaded(true)}
+          className={`absolute top-0 left-0 origin-top-left border-0 pointer-events-none transition-opacity duration-500 ${
+            loaded ? "opacity-100" : "opacity-0"
+          }`}
           style={{
             width: BASE_W,
             height: BASE_H,
