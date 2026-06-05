@@ -1,9 +1,12 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
 
-const TO = "hello@mgkcodes.com";
-// Must be a verified sender on a domain you control in Resend.
-const FROM = process.env.RESEND_FROM ?? "MGKCodes <noreply@mgkcodes.com>";
+// Where contact messages are delivered. On Resend's free plan (no verified
+// domain) this must be your Resend account email.
+const TO = process.env.CONTACT_TO ?? "hello@mgkcodes.com";
+// Sender. Free path: "onboarding@resend.dev". Verified-domain path: an address
+// on a domain you control in Resend.
+const FROM = process.env.RESEND_FROM ?? "onboarding@resend.dev";
 
 const isEmail = (v: string) => /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v);
 
