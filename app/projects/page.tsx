@@ -4,56 +4,9 @@ import { motion, useReducedMotion } from "framer-motion";
 import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
 import { SitePreview } from "@/components/ui/SitePreview";
+import { projects, type Project } from "@/lib/projects";
 
 const ease = [0.22, 1, 0.36, 1] as const;
-
-interface Project {
-  name: string;
-  tag: string;
-  status: string;
-  blurb: string;
-  links: { label: string; href: string }[];
-  logo?: { src: string; alt: string };
-  accentColor?: string;
-  previewUrl?: string;
-}
-
-const projects: Project[] = [
-  {
-    name: "frunt",
-    tag: "Web + Mobile",
-    status: "Live",
-    blurb:
-      "A preparation platform for restaurant teams. It turns the documents a restaurant " +
-      "already keeps (allergen guides, SOPs, compliance paperwork) into staff training, " +
-      "onboarding, and compliance, with a native app for the team and a dashboard for managers.",
-    links: [
-      { label: "frunthospitality.com", href: "https://frunthospitality.com" },
-    ],
-    previewUrl: "https://frunthospitality.com",
-    accentColor: "#8A5A2C",
-    logo: {
-      src: "/images/apps/frunt/app_icon.png",
-      alt: "frunt logo",
-    },
-  },
-  {
-    name: "Liftio",
-    tag: "iOS App",
-    status: "Live",
-    blurb:
-      "Native iOS app for tracking workouts and progressing training. Built to stay out of the way while you actually train.",
-    links: [
-      { label: "App Store", href: "https://apps.apple.com/gb/app/liftio/id6759969740" },
-      { label: "getliftio.com", href: "https://www.getliftio.com/" },
-    ],
-    previewUrl: "https://www.getliftio.com/",
-    logo: {
-      src: "/images/apps/liftio/liftio-high-resolution-logo.png",
-      alt: "Liftio logo",
-    },
-  },
-];
 
 export default function ProjectsPage() {
   const reduce = useReducedMotion();
@@ -134,9 +87,9 @@ function ProjectBlock({ project, index }: { project: Project; index: number }) {
       <div className="grid md:grid-cols-[180px_1fr] gap-6 md:gap-12 pt-10">
         <div>
           <span className="text-[11px] font-semibold tracking-[1.5px] uppercase text-[var(--color-text-quiet)]">
-            {project.tag}
+            {project.copy.projects.tag}
           </span>
-          <div className="mt-3 inline-flex items-center gap-2">
+          <div className="mt-3 flex items-center gap-2">
             <span
               className="h-1.5 w-1.5 rounded-full"
               style={{ backgroundColor: accent }}
@@ -164,14 +117,14 @@ function ProjectBlock({ project, index }: { project: Project; index: number }) {
               </div>
             )}
             <h2
-              id={project.name.toLowerCase()}
+              id={project.slug}
               className="scroll-mt-28 text-3xl md:text-4xl font-bold tracking-tight text-white leading-tight"
             >
               {project.name}
             </h2>
           </div>
           <p className="text-[16px] text-[var(--color-text)] leading-[1.7] mb-6">
-            {project.blurb}
+            {project.copy.projects.blurb}
           </p>
           <div className="flex flex-wrap gap-x-6 gap-y-2">
             {project.links.map((l) => (
@@ -194,10 +147,11 @@ function ProjectBlock({ project, index }: { project: Project; index: number }) {
             ))}
           </div>
 
-          {project.previewUrl && (
+          {project.preview && (
             <SitePreview
-              url={project.previewUrl}
-              label={new URL(project.previewUrl).host.replace(/^www\./, "")}
+              url={project.preview.url}
+              poster={project.preview.poster}
+              label={new URL(project.preview.url).host.replace(/^www\./, "")}
             />
           )}
         </div>
@@ -231,7 +185,7 @@ function NextPlaceholder({ index }: { index: number }) {
           <span className="text-[11px] font-semibold tracking-[1.5px] uppercase text-[var(--color-text-quiet)]">
             Next
           </span>
-          <div className="mt-3 inline-flex items-center gap-2">
+          <div className="mt-3 flex items-center gap-2">
             <span className="h-1.5 w-1.5 rounded-full bg-[var(--color-text-quiet)]" />
             <span className="text-[11px] uppercase tracking-[1.5px] text-[var(--color-text-quiet)]">
               In development

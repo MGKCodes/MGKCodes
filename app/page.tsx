@@ -3,11 +3,14 @@
 import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
+import { projects } from "@/lib/projects";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
 export default function HomePage() {
   const reduce = useReducedMotion();
+  // Order matches lib/projects.ts (frunt, then Liftio).
+  const [frunt, liftio] = projects;
   return (
     <div className="pt-32 pb-32">
       <section className="max-w-[1180px] mx-auto px-6 relative">
@@ -122,15 +125,29 @@ export default function HomePage() {
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-[var(--color-accent)]" />
               </span>
               <p className="text-[17px] text-white">
-                Shipping <span className="text-[var(--color-accent-strong)]">frunt</span>.
-                <span className="text-[var(--color-text-muted)]"> Staff training and compliance for restaurants. Live with its first client.</span>
+                {frunt.copy.home.currently.verb}{" "}
+                <span className="text-[var(--color-accent-strong)]">
+                  {frunt.name}
+                </span>
+                .
+                <span className="text-[var(--color-text-muted)]">
+                  {" "}
+                  {frunt.copy.home.currently.detail}
+                </span>
               </p>
             </div>
             <div className="flex items-baseline gap-3">
               <span className="h-2 w-2 rounded-full bg-[var(--color-text-quiet)] mt-1" />
               <p className="text-[17px] text-white">
-                Building <span className="text-[var(--color-accent-strong)]">Liftio</span>.
-                <span className="text-[var(--color-text-muted)]"> An iOS training tracker. Live on the App Store.</span>
+                {liftio.copy.home.currently.verb}{" "}
+                <span className="text-[var(--color-accent-strong)]">
+                  {liftio.name}
+                </span>
+                .
+                <span className="text-[var(--color-text-muted)]">
+                  {" "}
+                  {liftio.copy.home.currently.detail}
+                </span>
               </p>
             </div>
           </div>
@@ -159,57 +176,32 @@ export default function HomePage() {
           </div>
 
           <ul className="divide-y divide-[var(--color-border)] -mt-4">
-            <li>
-              <Link
-                href="/projects"
-                className="group grid grid-cols-[1fr_auto] md:grid-cols-[180px_1fr_120px_auto] items-baseline gap-x-6 gap-y-1 py-5"
-              >
-                <span className="text-[17px] text-white tracking-tight">
-                  frunt
-                </span>
-                <span className="hidden md:inline text-[12px] tracking-[1.5px] uppercase text-[var(--color-text-quiet)]">
-                  Web &middot; Hospitality
-                </span>
-                <span className="hidden md:flex items-center gap-2 text-[12px] text-[var(--color-text-muted)]">
-                  <span className="relative flex h-1.5 w-1.5">
-                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[var(--color-accent)] opacity-60" />
-                    <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-[var(--color-accent)]" />
+            {projects.map((project) => (
+              <li key={project.slug}>
+                <Link
+                  href={`/projects#${project.slug}`}
+                  className="group grid grid-cols-[1fr_auto] md:grid-cols-[180px_1fr_120px_auto] items-baseline gap-x-6 gap-y-1 py-5"
+                >
+                  <span className="text-[17px] text-white tracking-tight">
+                    {project.name}
                   </span>
-                  Live
-                </span>
-                <ArrowUpRight className="w-4 h-4 text-[var(--color-text-quiet)] transition-all duration-300 group-hover:text-white group-hover:translate-x-0.5 group-hover:-translate-y-0.5 row-span-2 md:row-span-1 self-center" />
-                <p className="col-span-1 md:col-span-3 text-[14px] text-[var(--color-text-muted)] leading-relaxed max-w-[620px]">
-                  Preparation platform for restaurant teams. Turns the documents
-                  they already keep into staff training and compliance, with a
-                  manager dashboard and a native staff app.
-                </p>
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="/projects"
-                className="group grid grid-cols-[1fr_auto] md:grid-cols-[180px_1fr_120px_auto] items-baseline gap-x-6 gap-y-1 py-5"
-              >
-                <span className="text-[17px] text-white tracking-tight">
-                  Liftio
-                </span>
-                <span className="hidden md:inline text-[12px] tracking-[1.5px] uppercase text-[var(--color-text-quiet)]">
-                  iOS &middot; Fitness
-                </span>
-                <span className="hidden md:flex items-center gap-2 text-[12px] text-[var(--color-text-muted)]">
-                  <span className="relative flex h-1.5 w-1.5">
-                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[var(--color-accent)] opacity-60" />
-                    <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-[var(--color-accent)]" />
+                  <span className="hidden md:inline text-[12px] tracking-[1.5px] uppercase text-[var(--color-text-quiet)]">
+                    {project.copy.home.tag}
                   </span>
-                  Live
-                </span>
-                <ArrowUpRight className="w-4 h-4 text-[var(--color-text-quiet)] transition-all duration-300 group-hover:text-white group-hover:translate-x-0.5 group-hover:-translate-y-0.5 row-span-2 md:row-span-1 self-center" />
-                <p className="col-span-1 md:col-span-3 text-[14px] text-[var(--color-text-muted)] leading-relaxed max-w-[620px]">
-                  Native training tracker. Progressive overload, clean logging,
-                  live on the App Store.
-                </p>
-              </Link>
-            </li>
+                  <span className="hidden md:flex items-center gap-2 text-[12px] text-[var(--color-text-muted)]">
+                    <span className="relative flex h-1.5 w-1.5">
+                      <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[var(--color-accent)] opacity-60" />
+                      <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-[var(--color-accent)]" />
+                    </span>
+                    {project.status}
+                  </span>
+                  <ArrowUpRight className="w-4 h-4 text-[var(--color-text-quiet)] transition-all duration-300 group-hover:text-white group-hover:translate-x-0.5 group-hover:-translate-y-0.5 row-span-2 md:row-span-1 self-center" />
+                  <p className="col-span-1 md:col-span-3 text-[14px] text-[var(--color-text-muted)] leading-relaxed max-w-[620px]">
+                    {project.copy.home.blurb}
+                  </p>
+                </Link>
+              </li>
+            ))}
             <li>
               <div className="grid grid-cols-[1fr_auto] md:grid-cols-[180px_1fr_120px_auto] items-baseline gap-x-6 gap-y-1 py-5">
                 <span className="text-[17px] text-[var(--color-text-muted)] tracking-tight">
