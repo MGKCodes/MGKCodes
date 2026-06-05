@@ -19,7 +19,6 @@
     "resend": "^6.12.4"
   },
   "devDependencies": {
-    "@netlify/plugin-nextjs": "^5.15.7",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
