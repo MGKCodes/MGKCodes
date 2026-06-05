@@ -51,7 +51,8 @@ const links: LinkItem[] = [
   },
   {
     label: "Email",
-    href: "mailto:hello@mgkcodes.com",
+    href: "/contact",
+    internal: true,
   },
 ];
 
