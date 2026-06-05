@@ -2,11 +2,14 @@ import { Metadata } from "next";
 import { JsonLd } from "@/components/JsonLd";
 import { breadcrumb } from "@/lib/schema";
 
+const description =
+  "Reach MGKCodes. Email hello@mgkcodes.com, or find the studio on LinkedIn.";
+
 export const metadata: Metadata = {
   title: "Contact",
-  description:
-    "Reach MGKCodes. Email hello@mgkcodes.com, or find the studio on LinkedIn.",
+  description,
   alternates: { canonical: "/contact" },
+  openGraph: { title: "Contact | MGKCodes", description, url: "/contact" },
 };
 
 export default function ContactLayout({

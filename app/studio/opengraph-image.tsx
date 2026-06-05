@@ -1,15 +1,15 @@
 import { ImageResponse } from "next/og";
 import { ogCard, ogSize, ogContentType } from "@/lib/ogCard";
 
-export const alt = "MGKCodes. Independent software studio. Idea to launch.";
+export const alt = "MGKCodes studio. Independent software studio, built by one.";
 export const size = ogSize;
 export const contentType = ogContentType;
 
 export default function OpengraphImage() {
   return new ImageResponse(
     ogCard({
-      eyebrow: "MGKCodes Studio",
-      lines: ["An independent", "software studio.", "Idea to launch."],
+      eyebrow: "Studio",
+      lines: ["Independent", "software studio.", "Built by one."],
       footer: "frunt · Liftio",
     }),
     { ...ogSize }
