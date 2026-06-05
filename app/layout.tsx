@@ -4,6 +4,7 @@ import { MotionConfig } from "framer-motion";
 import "./globals.css";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
+import { Analytics } from "@vercel/analytics/next";
 import { JsonLd } from "@/components/JsonLd";
 import { siteGraph } from "@/lib/schema";
 
@@ -56,6 +57,7 @@ export default function RootLayout({
           <main>{children}</main>
           <Footer />
         </MotionConfig>
+        <Analytics />
       </body>
     </html>
   );
