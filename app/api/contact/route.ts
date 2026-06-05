@@ -94,17 +94,19 @@ export async function POST(request: Request) {
     cleanMessage,
   ].join("\n");
 
+  // Email clients render on a light background, so use dark text. Accent is kept
+  // for the header only, where contrast is fine.
   const rows = meta
     .map(
       ([k, v]) =>
-        `<tr><td style="padding:2px 16px 2px 0;color:#8a8e98;white-space:nowrap;vertical-align:top">${k}</td><td style="padding:2px 0;color:#d4d6db;word-break:break-word">${escapeHtml(v)}</td></tr>`
+        `<tr><td style="padding:3px 16px 3px 0;color:#6b7280;white-space:nowrap;vertical-align:top">${k}</td><td style="padding:3px 0;color:#1f2937;word-break:break-word">${escapeHtml(v)}</td></tr>`
     )
     .join("");
 
-  const html = `<div style="font-family:-apple-system,Segoe UI,Roboto,sans-serif;max-width:560px;color:#d4d6db">
-  <p style="font-size:13px;letter-spacing:1px;text-transform:uppercase;color:#4a7ab8;margin:0 0 12px">New message via mgkcodes.com</p>
-  <table style="font-size:14px;border-collapse:collapse;margin-bottom:16px">${rows}</table>
-  <div style="border-top:1px solid #2a2e38;padding-top:16px;font-size:15px;line-height:1.6;white-space:pre-wrap;color:#ffffff">${escapeHtml(cleanMessage)}</div>
+  const html = `<div style="font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;max-width:560px;color:#1f2937;font-size:14px;line-height:1.5">
+  <p style="font-size:12px;letter-spacing:1px;text-transform:uppercase;color:#4a7ab8;font-weight:600;margin:0 0 16px">New message via mgkcodes.com</p>
+  <table style="border-collapse:collapse;margin-bottom:20px">${rows}</table>
+  <div style="border-top:1px solid #e5e7eb;padding-top:20px;font-size:15px;line-height:1.6;white-space:pre-wrap;color:#111827">${escapeHtml(cleanMessage)}</div>
 </div>`;
 
   try {
