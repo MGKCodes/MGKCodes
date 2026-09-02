@@ -17,6 +17,25 @@ const nextConfig: NextConfig = {
   async headers() {
     return [{ source: "/:path*", headers: securityHeaders }];
   },
+  // Liftio's privacy policy and terms lived here before getliftio.com existed,
+  // as 1,414 lines of hand-typed prose duplicating the ones that site now
+  // serves. The pages are gone. These URLs are not, because a shipped App Store
+  // listing carries whatever URL it was submitted with and cannot be corrected
+  // without a new submission. A 308 keeps them answering.
+  async redirects() {
+    return [
+      {
+        source: "/privacy/liftio",
+        destination: "https://getliftio.com/privacy",
+        permanent: true,
+      },
+      {
+        source: "/terms/liftio",
+        destination: "https://getliftio.com/terms",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;
